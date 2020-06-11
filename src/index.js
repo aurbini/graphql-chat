@@ -4,10 +4,10 @@ import typeDefs from './typeDefs'
 import resolvers from './resolvers'
 import mongoose from 'mongoose'
 import
-{ APP_PORT, IN_PROD, NODE_ENV, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } 
+{ APP_PORT, IN_PROD, NODE_ENV, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME }
   from './config'
 
-mongoose.connect(`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0-zkt9m.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`, 
+mongoose.connect(`mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0-d5rbu.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,
   { autoIndex: false,
     useUnifiedTopology: true })
 
@@ -18,7 +18,7 @@ app.disable('x-powered-by')
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  playground: IN_PROD
+  playground: !IN_PROD
 })
 
 server.applyMiddleware({ app })

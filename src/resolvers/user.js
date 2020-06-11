@@ -1,15 +1,27 @@
+import { UserInputError } from "apollo-server-express"
+import { User } from '../models'
+import mongoose from 'mongoose'
+import Joi from 'joi'
+import { SignUp } from '../schemas'
+
 export default {
   Query: {
-    users: (root, arg, context, info) => {
-
+    users: (root, args, context, info) => {
+      return User.find({})
     },
-    user: (root, arg, context, info) => {
-
+    user: (root, args, context, info) => {
+      if (!mongoose.Types.ObjectId.isValid(args.id)) {
+        throw new UserInputError(`${args.id} is not a valid user ID.`)
+      }
+      return User.findById(args.id)
     }
   },
   Mutation: {
-    signUp: (root, arg, context, info) => {
+    signUp: async (root, args, context, info) => {
 
+      await Joi.validate(args, SignUp, { abortEarly: false})
+
+      return User.create(args)
     }
   }
 }
