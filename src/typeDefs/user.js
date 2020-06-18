@@ -16,5 +16,8 @@ export default gql`
     email: String!
     username: String!
     name: String!
+    createdAt: String!
+    chats: [Chat!]!
+    updatedAt: String! 
   }
   `
